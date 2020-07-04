@@ -39,6 +39,10 @@ def user_album():
         "album": request.forms.get("album")
     }
 
+    if user_album_data["year"] or user_album_data["artist"] or user_album_data["genre"] or user_album_data["album"] is None:
+        message = "Ошибка ввода данных. Поля не должны быть пустыми."
+        return HTTPError(400, message)
+
     session = connect_db()
 
     # Проверяем есть ли введенный пользователем альбом в базе
@@ -50,7 +54,7 @@ def user_album():
     try:
         str(user_album_data["artist"])
     except HTTPError:
-        message = 'Ошибка ввода данных. Поля с именем артиста (artist) должно быть строкой (тип - str).'
+        message = "Ошибка ввода данных. Поля с именем артиста (artist) должно быть строкой (тип - str)."
         return HTTPError(400, message)
 
     try:
