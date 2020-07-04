@@ -38,7 +38,8 @@ def user_album():
         "genre": request.forms.get("genre"),
         "album": request.forms.get("album")
     }
-
+    
+    # Проверка полей на пустоту
     if user_album_data["year"] or user_album_data["artist"] or user_album_data["genre"] or user_album_data["album"] is None:
         message = "Ошибка ввода данных. Поля не должны быть пустыми."
         return HTTPError(400, message)
