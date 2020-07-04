@@ -1,3 +1,4 @@
+# Перед запуском кода необходимо установить в проекте модуль sqlalchemy
 import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base

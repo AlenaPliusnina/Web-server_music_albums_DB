@@ -1,3 +1,4 @@
+# Перед запуском кода необходимо установить в проекте модуль bottle
 from bottle import route
 from bottle import run
 from bottle import HTTPError
