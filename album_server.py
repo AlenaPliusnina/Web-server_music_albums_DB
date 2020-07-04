@@ -19,8 +19,8 @@ def albums(artist):
     else:
         album_names = [album.album for album in albums_list]
         albums_count = len(albums_list)
-        result = "Колличество альбомов у исполнителя - {}. Список альбомов {}:\n".format(albums_count, artist)
-        result += ",\n".join(album_names) + "."
+        result = "Колличество альбомов у исполнителя - {}. <br> Список альбомов {}: <br> - ".format(albums_count, artist)
+        result += ", <br> - ".join(album_names) + "."
     return result
 
 
