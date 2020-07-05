@@ -39,59 +39,60 @@ def user_album():
         "album": request.forms.get("album")
     }
 
-    if user_album_data["year"] or user_album_data["artist"] or user_album_data["genre"] or user_album_data["album"] is None:
+    if user_album_data["year"] == "" or user_album_data["artist"] == "" or user_album_data["genre"] == ""\
+            or user_album_data["album"] == "":
         message = "Ошибка ввода данных. Поля не должны быть пустыми."
         return HTTPError(400, message)
-
-    session = connect_db()
-
-    # Проверяем есть ли введенный пользователем альбом в базе
-    if session.query(Album).filter(Album.album == user_album_data["album"]) is True:
-        message = "Данные об альбоме {} уже есть в базе".format(user_album_data["album"])
-        return HTTPError(409, message)
-
-    # Проверка корректности ввода имени артиста, жанра и названия альбома
-    try:
-        str(user_album_data["artist"])
-    except HTTPError:
-        message = "Ошибка ввода данных. Поля с именем артиста (artist) должно быть строкой (тип - str)."
-        return HTTPError(400, message)
-
-    try:
-        str(user_album_data["genre"])
-    except ValueError:
-        message = "Ошибка ввода данных. Поле с наименованием жанра (genre) должно быть строкой (тип - str)."
-        return HTTPError(400, message)
-
-    try:
-        str(user_album_data["album"])
-    except ValueError:
-        message = "Ошибка ввода данных. Поле с названием альбома (аlbum) должно быть строкой (тип - str)."
-        return HTTPError(400, message)
-
-    # Проверка корректности ввода года
-    try:
-        int(user_album_data["year"])
-        if len(str(user_album_data["year"])) != 4:
-            message = "Ошибка ввода данных. Год должен быть 4-х значным числом типа int."
-            return HTTPError(400, message)
-    except ValueError:
-        message = "Ошибка ввода данных. Год должен быть 4-х значным числом типа int."
-        return HTTPError(400, message)
-
     else:
-        # Сохраняет введенные пользователем данные об альбоме в БД
-        album = Album(
-            year=user_album_data["year"],
-            artist=user_album_data["artist"],
-            genre=user_album_data["genre"],
-            album=user_album_data["album"]
-        )
+        session = connect_db()
 
-        session.add(album)
-        session.commit()
+        # Проверяем есть ли введенный пользователем альбом в базе
+        if session.query(Album).filter(Album.album == user_album_data["album"]).first():
+            message = "Данные об альбоме {} уже есть в базе".format(user_album_data["album"])
+            return HTTPError(409, message)
+        else:
+            # Проверка корректности ввода имени артиста, жанра и названия альбома
+            try:
+                str(user_album_data["artist"])
+            except ValueError:
+                message = "Ошибка ввода данных. Поля с именем артиста (artist) должно быть строкой (тип - str)."
+                return HTTPError(400, message)
 
-        return "Данные успешно сохранены!"
+            try:
+                str(user_album_data["genre"])
+            except ValueError:
+                message = "Ошибка ввода данных. Поле с наименованием жанра (genre) должно быть строкой (тип - str)."
+                return HTTPError(400, message)
+
+            try:
+                str(user_album_data["album"])
+            except TypeError:
+                message = "Ошибка ввода данных. Поле с названием альбома (аlbum) должно быть строкой (тип - str)."
+                return HTTPError(400, message)
+
+            # Проверка корректности ввода года
+            try:
+                int(user_album_data["year"])
+                if len(str(user_album_data["year"])) != 4:
+                    message = "Ошибка ввода данных. Год должен быть 4-х значным числом типа int."
+                    return HTTPError(400, message)
+            except ValueError:
+                message = "Ошибка ввода данных. Год должен быть 4-х значным числом типа int."
+                return HTTPError(400, message)
+
+            else:
+                # Сохраняет введенные пользователем данные об альбоме в БД
+                album = Album(
+                    year=user_album_data["year"],
+                    artist=user_album_data["artist"],
+                    genre=user_album_data["genre"],
+                    album=user_album_data["album"]
+                )
+
+                session.add(album)
+                session.commit()
+
+                return "Данные успешно сохранены!"
 
 
 if __name__ == "__main__":

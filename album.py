@@ -40,5 +40,3 @@ def find(artist):
     albums = session.query(Album).filter(Album.artist == artist).all()
 
     return albums
-
-
