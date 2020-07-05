@@ -51,23 +51,9 @@ def user_album():
             message = "Данные об альбоме {} уже есть в базе".format(user_album_data["album"])
             return HTTPError(409, message)
         else:
-            # Проверка корректности ввода имени артиста, жанра и названия альбома
-            try:
-                str(user_album_data["artist"])
-            except ValueError:
-                message = "Ошибка ввода данных. Поля с именем артиста (artist) должно быть строкой (тип - str)."
-                return HTTPError(400, message)
-
-            try:
-                str(user_album_data["genre"])
-            except ValueError:
+            # Проверка корректности ввода жанра
+            if user_album_data["genre"].isdigit():
                 message = "Ошибка ввода данных. Поле с наименованием жанра (genre) должно быть строкой (тип - str)."
-                return HTTPError(400, message)
-
-            try:
-                str(user_album_data["album"])
-            except TypeError:
-                message = "Ошибка ввода данных. Поле с названием альбома (аlbum) должно быть строкой (тип - str)."
                 return HTTPError(400, message)
 
             # Проверка корректности ввода года
