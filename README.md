@@ -18,7 +18,7 @@
 
    Пример:
    
-   ![Иллюстрация к проекту](https://github.com/AlenaPliusnina/web-server_Albums_DataBase_B6.13/blob/master/screenshots/get_post.png)
+   ![Иллюстрация к проекту](https://github.com/AlenaPliusnina/web-server_Albums_DataBase_B6.13/blob/master/screenshots/post.png)
    
    ![Иллюстрация к проекту](https://github.com/AlenaPliusnina/web-server_Albums_DataBase_B6.13/blob/master/screenshots/get_2.png)
    
@@ -27,7 +27,7 @@
 
    Пример:
    
-   ![Иллюстрация к проекту](https://github.com/AlenaPliusnina/web-server_Albums_DataBase_B6.13/blob/master/screenshots/http_error.png)
+   ![Иллюстрация к проекту](https://github.com/AlenaPliusnina/web-server_Albums_DataBase_B6.13/blob/master/screenshots/http_error_409.png)
    
 Для локального запуска проекта скачайте репозиторий и запустите сервер через командную строку:
  
